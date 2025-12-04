@@ -1,0 +1,20 @@
+@import "../common/Header/Header.scss";
+@import "../common/Footer/Footer.scss";
+
+body {
+  color: #f1f1f2;
+  font-size: 14px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+.main-wrapper {
+  height: 100vh;
+}
+.w-100 {
+  width: 100%;
+}
+.content-wrapper {
+  background: #ffffff;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+}
