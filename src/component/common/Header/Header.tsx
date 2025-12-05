@@ -9,7 +9,7 @@ const HeaderComponent = () =>{
     return (
       <Header className="header-wrapper">
         <Space size={"middle"} className="header-container w-100">
-          <div className="logo-container">WebSter</div>
+          <div className="logo-container">SwapWeb</div>
           <MenuComponent />
         </Space>
       </Header>

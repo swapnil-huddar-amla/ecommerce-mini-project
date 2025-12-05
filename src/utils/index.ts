@@ -2,5 +2,5 @@ export const getFooterText = () => {
   const today = new Date();
   const year = today.getFullYear();
 
-  return `Copyright © ${year}, WebSter. All Rights Reserved.`;
+  return `Copyright © ${year}, SwapWeb. All Rights Reserved.`;
 };
