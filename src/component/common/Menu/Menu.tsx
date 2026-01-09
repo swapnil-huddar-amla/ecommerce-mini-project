@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import { Menu } from "antd";
+import { Menu, Space } from "antd";
 import {
   HomeOutlined,
   ProductOutlined,
-  ContactsOutlined,
   CrownOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
-
 import type { MenuProps } from "antd";
+import { useCart } from "../../Context/CartContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const MainMenuItems: MenuProps["items"] = [
   {
-    label: <a href="/">Home</a>,
+    label: "Home",
     key: "home",
     icon: <HomeOutlined />,
   },
   {
-    label: <a href="/product-listing">Products</a>,
+    label: "Products",
     key: "product",
     icon: <ProductOutlined />,
   },
@@ -24,7 +25,7 @@ const MainMenuItems: MenuProps["items"] = [
 
 const ProfileMenuItems: MenuProps["items"] = [
   {
-    label: <a href="/">Hello, User</a>,
+    label: "Hello, User",
     key: "subMenu",
     icon: <CrownOutlined />,
   },
@@ -32,18 +33,27 @@ const ProfileMenuItems: MenuProps["items"] = [
 
 const MenuComponent = () => {
   const [current, setCurrent] = useState("home");
-  
+  const { cart } = useCart();
+  const navigate = useNavigate();
 
-  const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click 11111", e);
+  const onMenuItemClick: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);
+
+    if (e.key === "home") navigate("/");
+    if (e.key === "product") navigate("/product-listing");
   };
-  
+
+  const handleCartClick = () => {
+    navigate("/cart", {
+      state: { items: cart },
+    });
+  };
+
   return (
-    <>
+    <Space size="middle">
       <div className="main-header-navigation">
         <Menu
-          onClick={onClick}
+          onClick={onMenuItemClick}
           selectedKeys={[current]}
           mode="horizontal"
           items={MainMenuItems}
@@ -51,14 +61,21 @@ const MenuComponent = () => {
         />
       </div>
       <div className="header-profile-navigation">
-        <Menu
-          onClick={onClick}
-          selectedKeys={[current]}
-          items={ProfileMenuItems}
-          className="profile-navigation"
-        />
+        <CrownOutlined /> Hello, User
       </div>
-    </>
+      <Space size={"middle"}
+        style={{ cursor: "pointer" }}
+        onClick={handleCartClick}
+        className="cart-icon-wrapper"
+      >
+        <div>
+          <ShoppingCartOutlined />
+        </div>
+        <div className="cart-count">
+          {cart.length > 0 && `(${cart.length})`}
+        </div>
+      </Space>
+    </Space>
   );
 };
 

@@ -5,6 +5,7 @@ import ProductListing from "../component/Products/ProductListing";
 import ProductDetails from "../component/Products/ProductDetails";
 import Homepage from "../pages/Homepage";
 import ProductsListingPage from "../pages/Products";
+import CartPage from "../pages/CartPage";
 
 export const AppRouter: React.FC = () => {
   const mainLayout = <MainLayout />;
@@ -14,13 +15,14 @@ export const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={mainLayout}>
           <Route index element={<Homepage />} />
-          <Route
-            path={"/product-listing"}
-            element={<ProductsListingPage />}
-          />
+          <Route path={"/product-listing"} element={<ProductsListingPage />} />
           <Route
             path={"/product-details/:productId"}
             element={<ProductDetails />}
+          />
+          <Route
+            path={"/cart"}
+            element={<CartPage />}
           />
         </Route>
       </Routes>

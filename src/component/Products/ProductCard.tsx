@@ -17,6 +17,7 @@ import { getProductListing } from "../../api/Services/product.api";
 import ButtonComponent from "../common/Button/Button";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { CartItemToAdd } from "../../interfaces/ClientInterface/ICart";
+import { useCart } from "../Context/CartContextProvider";
 
 const { Column } = Table;
 const { Text, Title } = Typography;
@@ -61,7 +62,19 @@ const ProductCard = () => {
       return updatedItems;
     });
   };
+  const { addToCart } = useCart();
 
+  const handleAddToCart = (item: any) => {
+    addToCart({
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      category: item.category,
+      images: item.images,
+      description: item.description,
+      name: item.title,
+    });
+  };
   return (
     <>
       <Row className="product-card-wrapper" gutter={[15, 15]}>
@@ -109,17 +122,21 @@ const ProductCard = () => {
                     btnType={"primary"}
                     btnSize={"large"}
                     classNames="w-100"
-                    onClick={() =>
-                      handleProductClick(item, {
-                        id: item.id,
-                        name: item.title,
-                        price: item.price,
-                        category: item.category,
-                        images: item.images,
-                        title: item.title,
-                        description: item.description,
-                      })
-                    }
+                    // onClick={() =>
+                    //   handleProductClick(item, {
+                    //     id: item.id,
+                    //     name: item.title,
+                    //     price: item.price,
+                    //     category: item.category,
+                    //     images: item.images,
+                    //     title: item.title,
+                    //     description: item.description,
+                    //   })
+                    // }
+                    onClick={(e: { stopPropagation: () => void; }) => {
+                      e.stopPropagation();
+                      handleAddToCart(item);
+                    }}
                   >
                     Add to Cart
                   </ButtonComponent>
